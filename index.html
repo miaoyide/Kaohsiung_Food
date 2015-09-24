@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>台灣小吃</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/all.css">
+</head>
+
+<body ng-app="foodApp">
+    <header>
+        <div class="container">
+            <h1>高雄旅遊網-餐飲資料</h1>
+        </div>
+    </header>
+    <section class="main" ng-controller="mainController">
+        <div class="container">
+            <h3>共 {{ totalPage }} 間店家</h3>
+            <div class="text-center" ng-if="loading">
+                <i class="fa fa-spinner fa-spin fa-fw"></i>資料載入中
+            </div>
+            <pagination ng-model="currentPage" ng-change="pageChanged()" total-items="totalPage" items-per-page="12" max-size="maxSize" boundary-links="true" previous-text="←" next-text="→" first-text="首頁" last-text="末頁"></pagination>
+            <div class="row">
+                <div class="item col-lg-3 col-md-4 col-sm-6" ng-repeat="x in perpageFood">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h4>{{ x.Name }}</h4>
+                        </div>
+                        <div class="panel-body">
+                            <div class="pic">
+                                <img ng-src="{{ x.Picture1 }}" alt="{{ x.Name }}">
+                            </div>
+                            <div class="description">
+                                <p ng-class="{show: readmore}">{{ x.Description }}</p>
+                                <a id="readmore" href="javascript:void(0)" ng-click="showDescription()" ng-model="readmore">{{ turn }}</a>
+                            </div>
+                            <div class="tel">{{ x.Tel }}</div>
+                            <div class="address">{{ x.Add }}</div>
+                            <div class="opentime">{{ x.Opentime }}</div>
+                            <div class="website">
+                                <a ng-href="{{ x.Website }}" target="_blank">{{ x.Website }}</a></div>
+                            <div class="updatetime">最後更新日期: {{ x.Changetime }}</div>
+                            {{ x.Class }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <pagination ng-model="currentPage" ng-change="pageChanged()" total-items="totalPage" items-per-page="12" max-size="maxSize" boundary-links="true" previous-text="←" next-text="→" first-text="首頁" last-text="末頁"></pagination>
+        </div>
+    </section>
+    <footer class="text-center">
+        copyright Data.Kaohsiung Reserved 2015.
+    </footer>
+    <!-- Javascript Here -->
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.6/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.4/ui-bootstrap-tpls.min.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/controllers/mainController.js"></script>
+</body>
+
+</html>
